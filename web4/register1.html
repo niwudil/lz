@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册界面</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form {
+            background-color: #f4f4f4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form input[type="text"],
+        .form input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+        }
+
+        .form input[type="text"]:focus,
+        .form input[type="password"]:focus {
+            border-color: #03a9f4;
+            outline: none;
+        }
+
+        @keyframes animate {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 400% 0;
+            }
+        }
+
+        .button a,
+        .button button {
+            display: inline-block;
+            position: relative;
+            width:30%;
+            z-index: 1;
+            overflow: hidden;
+            text-decoration: none;
+            font-family: sans-serif;
+            font-weight: 600;
+            font-size: 2em;
+            padding: 0.75em 1em;
+            color: blue;
+            border: 0.15em solid blue;
+            border-radius: 2em;
+            transition: 4s;
+        }
+
+        .button a {
+            border-color: #333;
+            margin: 0em;
+            border-width: 1px;
+            border-style: outset;
+            border-image: initial;
+        }
+
+        .button button:before,
+        .button button:after {
+            content: "";
+            position: absolute;
+            top: -1.5em;
+            z-index: -1;
+            width: 200%;
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 40%;
+            background-color: rgba(0, 0, 255, 0.25);
+            transition: 4s;
+        }
+
+        .button button:before {
+            left: -80%;
+            transform: translate3d(0, 5em, 0) rotate(-340deg);
+        }
+
+        .button button:after {
+            right: -80%;
+            transform: translate3d(0, 5em, 0) rotate(390deg);
+        }
+
+        .button button:hover,
+        .button button:focus {
+            color: white;
+        }
+
+        .button button:hover:before,
+        .button button:hover:after,
+        .button button:focus:before,
+        .button bu:focus:after {
+            transform: none;
+            background-color: rgba(0, 0, 255, 0.75);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <form class="form" @submit.prevent="register">
+            <h2>注册</h2>
+            <div class="button">
+                <p>用户名</p>
+                <input type="text" v-model="username" placeholder="请输入用户名" required>
+            </div>
+            <div class="button">
+                <p>密码</p>
+                <input type="password" v-model="password" placeholder="请输入密码" required>
+            </div>
+            <div class="button">
+                <p>确认密码</p>
+                <input type="password" v-model="confirmPassword" placeholder="请再次输入密码" required>
+            </div>
+            <div class="button">
+                <button type="submit">提交</button>
+                <button type="reset">重置</button>
+                <button type="submit" onclick="window.open('./index.html')">返回</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                username: '',
+                password: '',
+                confirmPassword: ''
+            },
+            methods: {
+                register() {
+                    if (this.password !== this.confirmPassword) {
+                        alert('两次输入的密码不一致，请重新输入！');
+                        return;
+                    }
+                    axios.post('http://111.229.213.244:9250/register', {
+                        username: this.username,
+                        password: this.password
+                    })
+                        .then(response => {
+                            if (response.data.code == 200) {
+                                alert(response.data.description);
+                                window.location.href = './Login.html';
+                            }
+                            else {
+                                alert(description);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('注册失败:', error);
+                            alert('注册失败，请稍后再试！');
+                        });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

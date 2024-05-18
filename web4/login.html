@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录页面</title>
+  <link rel="stylesheet" href="login-register.css">
+</head>
+<body>
+  <div class="container" id="app">
+    <form class="form" @submit.prevent="login">
+      <h2>登录</h2>
+      <div class="button">
+        <p>用户名</p>
+        <input type="text" v-model="username" placeholder="请输入用户名">
+      </div>
+      <div class="button">
+        <p>密码</p>
+        <input type="password" v-model="password" placeholder="请输入密码">
+      </div>
+      <div class="button">
+        <button type="submit">登录</button>
+        <a href="./register1.html">注册</a>
+        <button type="reset">重置</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        username: '',
+        password: ''
+      },
+      methods: {
+        login() {
+                    axios.post('http://111.229.213.244:9250/login', {
+                        username: this.username,
+                        password: this.password
+                    })
+                        .then(response => {
+
+                            if(response.data.code==200){
+                                alert(response.data.description);
+                            
+                            }
+                            else{
+                                alert(description)
+                            }
+                            
+                        })
+          .catch(error => {
+            console.error('登录失败:', error);
+            alert('登录失败，请稍后再试！');
+          });
+        }
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    background-color: #f4f4f4;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form h2 {
+    text-align: center;
+    color: #333;
+}
+
+.form input[type="text"],
+.form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f9f9f9;
+}
+
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
+    border-color: #03a9f4;
+    outline: none;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 400% 0;
+    }
+}
+
+.button a,
+.button button {
+    position: relative;
+    display: inline-block;
+    width: 100px;
+    height: 60px;
+    background-color: rgb(73, 143, 248);
+    color: #fcf9f9;
+    line-height: 60px;
+    text-align: center;
+    text-decoration: none;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 10px;
+    transition: all 1s;
+    
+}
+
+.button a{
+    border-color: #333;
+    margin: 0em;
+    border-width: 1px;
+    border-style: outset;
+    border-image: initial;
+}
+.button a:hover,
+.button button:hover {
+    animation: animate 8s linear infinite;
+}
+
+.button a:before,
+.button button:before {
+    content: ' ';
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffed3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.button a:hover:before,
+.button button:hover:before {
+    filter: blur(20px);
+    opacity: 1;
+}
